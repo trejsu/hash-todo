@@ -116,4 +116,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'todo:home'
+LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'
