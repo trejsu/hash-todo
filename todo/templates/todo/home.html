@@ -4,5 +4,13 @@
 
 {% block content %}
   Hi {{ user.username }}!
+
+  <h2>Your tasks</h2>
+  <ul>
+    {% for task in object_list %}
+      <li>{{ task.text }}</li>
+    {% endfor %}
+  </ul>
+
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% endblock %}
