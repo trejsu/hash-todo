@@ -1,9 +1,10 @@
 html {
   --bg-color: #f1f1f1;
-  --font-light: #f1f1f1;
+  --font-light: #ffffff;
   --font-dark: #3a3d4e;
   --body-color: #fff;
   --accent-color: #dd4b39;
+  --accent-light: #f64b39;
   --secondary: #ac211e;
   background: var(--bg-color);
 }
@@ -11,13 +12,11 @@ html {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 13px;
-  margin: 0;
   line-height: 20px;
   color: var(--font-dark);
   max-width: 750px;
   padding: 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto !important;
   overflow-x: hidden;
   background-color: var(--body-color);
 }

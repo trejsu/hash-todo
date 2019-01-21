@@ -1,0 +1,39 @@
+.navigation {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: var(--accent-color);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+  height: 43px;
+  color: var(--font-light);
+  width: 100%
+}
+
+.navigation-content {
+  max-width: 750px;
+}
+
+.navigation-content div {
+  line-height: 40px;
+}
+
+.navigation-content i {
+  line-height: 40px;
+}
+
+#logout-icon {
+  font-size: 30px;
+  text-align: right;
+}
+
+#logout-icon a {
+  color: var(--font-light)
+}
+
+#logout-icon a:hover {
+  background: var(--accent-light);
+}
+
+#task-list {
+  padding-top: 60px;
+}
