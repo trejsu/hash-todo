@@ -2,10 +2,10 @@
   position: fixed;
   left: 0;
   top: 0;
-  background: var(--accent-color);
+  background: var(--dark-color);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   height: 43px;
-  color: var(--font-light);
+  color: var(--light-color);
   width: 100%
 }
 
@@ -22,18 +22,56 @@
 }
 
 #logout-icon {
-  font-size: 30px;
+  font-size: 25px;
   text-align: right;
 }
 
 #logout-icon a {
-  color: var(--font-light)
+  color: var(--light-high-opacity)
 }
 
 #logout-icon a:hover {
-  background: var(--accent-light);
+  color: var(--light-color);
 }
 
 #task-list {
-  padding-top: 60px;
+  padding-top: 100px;
+  max-width: 750px;
+  margin: auto;
+  font-weight: 500;
+}
+
+#task-list h2 {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+  font-weight: 700;
+}
+
+#task-list li {
+  background: var(--light-color);
+  padding: .75rem 1.5rem;
+  margin-bottom: .5rem;
+  line-height: 1.25rem;
+}
+
+#task-list li:first-child {
+  margin-top: -8px;
+}
+
+#task-list li:last-child {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+#task-list li.done {
+  background: var(--light-high-opacity);
+  color: var(--dark-high-opacity);
+}
+
+#task-list ul {
+  list-style-type: none;
 }

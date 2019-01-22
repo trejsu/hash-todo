@@ -1,28 +1,26 @@
 html {
-  --bg-color: #f1f1f1;
-  --font-light: #ffffff;
-  --font-dark: #3a3d4e;
-  --body-color: #fff;
-  --accent-color: #dd4b39;
-  --accent-light: #f64b39;
-  --secondary: #ac211e;
-  background: var(--bg-color);
+  --light-color: #ffffff;
+  --dark-color: #343a40;
+  --primary-color: #5ac144;
+  --light-low-opacity: rgba(255, 255, 255, .1);
+  --dark-low-opacity: rgba(0, 0, 0, .1);
+  --light-high-opacity: rgba(255, 255, 255, .5);
+  --dark-high-opacity: rgba(0, 0, 0, .5);
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 13px;
   line-height: 20px;
-  color: var(--font-dark);
-  max-width: 750px;
+  color: var(--dark-color);
   padding: 0;
   margin: 0 auto !important;
   overflow-x: hidden;
-  background-color: var(--body-color);
+  background-color: var(--primary-color) !important;
 }
 
 a {
-  color: var(--accent-color);
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -31,7 +29,7 @@ a:hover {
 }
 
 .logo {
-  color: var(--accent-color);
+  color: var(--primary-color);
   font-family: 'Rubik', sans-serif;
   text-align: center;
   font-size: 50px;
@@ -44,8 +42,10 @@ a:hover {
   box-sizing: border-box;
   max-width: 410px;
   font-size: 13px;
-  color: var(--font-dark);
-  margin: auto;
+  color: var(--dark-color);
+  background-color: var(--light-color);
+  margin: 100px auto auto;
+  border-radius: .25rem;
 }
 
 .form button {
@@ -58,10 +58,11 @@ a:hover {
   font-weight: bold;
   padding: 9px 12px;
   box-sizing: border-box;
-  background: var(--accent-color);
-  color: var(--font-light);
+  background: var(--primary-color);
+  color: var(--light-color);
   text-shadow: none;
   border: 1px solid transparent;
+  border-radius: .25rem
 }
 
 .form input {
@@ -78,6 +79,6 @@ a:hover {
 }
 
 .errorlist {
-  color: var(--accent-color);
+  color: var(--danger);
   font-weight: 600;
 }
