@@ -70,4 +70,5 @@
 .item.done {
   background: var(--light-high-opacity);
   color: var(--dark-high-opacity);
+  text-decoration: line-through;
 }
