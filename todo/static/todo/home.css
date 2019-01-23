@@ -58,6 +58,10 @@
   line-height: 1.25rem;
 }
 
+.item a {
+  color: var(--dark-color);
+}
+
 .item:first-child {
   margin-top: -8px;
 }
@@ -71,4 +75,8 @@
   background: var(--light-high-opacity);
   color: var(--dark-high-opacity);
   text-decoration: line-through;
+}
+
+.item.done a {
+  color: var(--dark-high-opacity);
 }

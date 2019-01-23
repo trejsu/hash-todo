@@ -19,3 +19,6 @@ class Task(UserData):
 
     def __str__(self):
         return self.text
+
+    def opposite_status(self):
+        return STATUS.active if self.status == STATUS.done else STATUS.done

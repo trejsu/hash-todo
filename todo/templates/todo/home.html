@@ -34,15 +34,17 @@
     <div id="todos">
 
       {% for task in object_list %}
-        <div class="row item {{ task.status }}" id="item-{{ task.id }}">
+        <div class="row item {{ task.status }}">
 
-          <div class="col-sm-1 tick" data-id="{{ task.id }}" data-status="{{ task.status }}">
+          <div class="col-sm-1 tick">
 
-            {% if task.status == 'active' %}
-              <i id="tick-{{ task.id }}" class="far fa-circle"></i>
-            {% else %}
-              <i id="tick-{{ task.id }}" class="fas fa-check"></i>
-            {% endif %}
+            <a href="{% url "todo:toggle-task-status" task.id %}">
+              {% if task.status == 'active' %}
+                <i class="far fa-circle"></i>
+              {% else %}
+                <i class="fas fa-check"></i>
+              {% endif %}
+            </a>
 
           </div>
 
