@@ -51,27 +51,23 @@
   font-weight: 700;
 }
 
-#task-list li {
+.item {
   background: var(--light-color);
   padding: .75rem 1.5rem;
   margin-bottom: .5rem;
   line-height: 1.25rem;
 }
 
-#task-list li:first-child {
+.item:first-child {
   margin-top: -8px;
 }
 
-#task-list li:last-child {
+.item:last-child {
   border-bottom-left-radius: .25rem;
   border-bottom-right-radius: .25rem;
 }
 
-#task-list li.done {
+.item.done {
   background: var(--light-high-opacity);
   color: var(--dark-high-opacity);
-}
-
-#task-list ul {
-  list-style-type: none;
 }

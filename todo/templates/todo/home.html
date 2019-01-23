@@ -30,11 +30,27 @@
   <div id="task-list">
 
     <h2>TODOS</h2>
-    <ul>
+
+    <div id="todos">
+
       {% for task in object_list %}
-        <li>{{ task.text }}</li>
+        <div class="row item {{ task.status }}" id="item-{{ task.id }}">
+
+          <div class="col-sm-1 tick" data-id="{{ task.id }}" data-status="{{ task.status }}">
+
+            {% if task.status == 'active' %}
+              <i id="tick-{{ task.id }}" class="far fa-circle"></i>
+            {% else %}
+              <i id="tick-{{ task.id }}" class="fas fa-check"></i>
+            {% endif %}
+
+          </div>
+
+          <div class="col-sm-11 content">{{ task.text }}</div>
+
+        </div>
       {% endfor %}
-    </ul>
+    </div>
 
   </div>
 
