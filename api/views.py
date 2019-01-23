@@ -11,7 +11,7 @@ class ListTasksView(generics.ListAPIView):
         return Task.objects.filter(user=self.request.user)
 
 
-class DetailTaskView(generics.RetrieveAPIView):
+class TaskView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
