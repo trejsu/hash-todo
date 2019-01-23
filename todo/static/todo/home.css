@@ -27,11 +27,7 @@
 }
 
 #logout-icon a {
-  color: var(--light-high-opacity)
-}
-
-#logout-icon a:hover {
-  color: var(--light-color);
+  color: var(--light-color)
 }
 
 #task-list {
@@ -41,7 +37,7 @@
   font-weight: 500;
 }
 
-#task-list h2 {
+#todos-header {
   background-color: var(--dark-color);
   color: var(--light-color);
   font-size: 1rem;
@@ -62,10 +58,6 @@
   color: var(--dark-color);
 }
 
-.item:first-child {
-  margin-top: -8px;
-}
-
 .item:last-child {
   border-bottom-left-radius: .25rem;
   border-bottom-right-radius: .25rem;
@@ -79,4 +71,14 @@
 
 .item.done a {
   color: var(--dark-high-opacity);
+}
+
+#todos-menu-icon {
+  line-height: 1.5rem;
+}
+
+#todos-menu {
+  z-index: 505;
+  top: 110px;
+  left: 1216px;
 }
