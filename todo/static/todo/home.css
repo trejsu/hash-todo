@@ -86,3 +86,12 @@
 #show-done-toggle:hover {
   cursor: pointer;
 }
+
+#greeting {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.tick a:hover {
+  color: var(--primary-color)
+}
