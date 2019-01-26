@@ -82,3 +82,7 @@
   top: 110px;
   left: 1216px;
 }
+
+#show-done-toggle:hover {
+  cursor: pointer;
+}
