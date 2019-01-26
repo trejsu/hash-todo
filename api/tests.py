@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework.test import APITestCase, APIClient
 
-from todo.models import Task
+from todo.models import Task, STATUS
 from .serializers import TaskSerializer
 
 
@@ -47,7 +47,7 @@ class GetAllTasksTest(APITestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class GetTaskTest(APITestCase):
+class TaskTest(APITestCase):
     client = APIClient()
 
     def setUp(self):
@@ -61,7 +61,7 @@ class GetTaskTest(APITestCase):
 
         # when
         response = self.client.get(
-            reverse("get-task", kwargs={"version": "v1", "pk": task_id})
+            reverse("task", kwargs={"version": "v1", "pk": task_id})
         )
 
         # then
@@ -75,7 +75,7 @@ class GetTaskTest(APITestCase):
 
         # when
         response = self.client.get(
-            reverse("get-task", kwargs={"version": "v1", "pk": task_id})
+            reverse("task", kwargs={"version": "v1", "pk": task_id})
         )
 
         # then
@@ -88,7 +88,111 @@ class GetTaskTest(APITestCase):
 
         # when
         response = self.client.get(
-            reverse("get-task", kwargs={"version": "v1", "pk": task_id})
+            reverse("task", kwargs={"version": "v1", "pk": task_id})
+        )
+
+        # then
+        self.assertEqual(response.status_code, 404)
+
+    def test_should_update_task_using_put_method(self):
+        # given
+        self.client.login(username='test', password='test')
+        id = 1
+        task = Task.objects.get(pk=id)
+        self.assertEqual(task.status, STATUS.active)
+        task.status = STATUS.done
+        put_data = TaskSerializer(task).data
+
+        # when
+        response = self.client.put(
+            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            data=put_data
+        )
+        updated_task = Task.objects.get(pk=id)
+
+        # then
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(updated_task.status, STATUS.done)
+
+    def test_should_return_404_when_calling_put_for_task_not_owned_by_current_user(self):
+        # given
+        self.client.login(username='test', password='test')
+        id = 4
+        task = Task.objects.get(pk=id)
+        self.assertEqual(task.status, STATUS.active)
+        task.status = STATUS.done
+        put_data = TaskSerializer(task).data
+
+        # when
+        response = self.client.put(
+            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            data=put_data
+        )
+
+        # then
+        self.assertEqual(response.status_code, 404)
+
+    def test_should_update_task_using_patch_method(self):
+        # given
+        self.client.login(username='test', password='test')
+        id = 1
+        task = Task.objects.get(pk=id)
+        self.assertEqual(task.status, STATUS.active)
+        task.status = STATUS.done
+        patch_data = {'status': 'done'}
+
+        # when
+        response = self.client.patch(
+            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            data=patch_data
+        )
+        updated_task = Task.objects.get(pk=id)
+
+        # then
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(updated_task.status, STATUS.done)
+
+    def test_should_return_404_when_calling_patch_for_task_not_owned_by_current_user(self):
+        # given
+        self.client.login(username='test', password='test')
+        id = 4
+        task = Task.objects.get(pk=id)
+        self.assertEqual(task.status, STATUS.active)
+        task.status = STATUS.done
+        patch_data = {'status': 'done'}
+
+        # when
+        response = self.client.patch(
+            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            data=patch_data
+        )
+
+        # then
+        self.assertEqual(response.status_code, 404)
+
+    def test_should_delete_task(self):
+        # given
+        self.client.login(username='test', password='test')
+        id = 1
+
+        # when
+        response = self.client.delete(
+            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+        )
+
+        # then
+        with self.assertRaises(Task.DoesNotExist):
+            Task.objects.get(pk=id)
+        self.assertEqual(response.status_code, 204)
+
+    def test_should_return_404_when_deleting_task_not_owned_by_current_user(self):
+        # given
+        self.client.login(username='test', password='test')
+        id = 4
+
+        # when
+        response = self.client.delete(
+            path=reverse("task", kwargs={"version": "v1", "pk": id}),
         )
 
         # then
