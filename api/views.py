@@ -4,11 +4,14 @@ from api.serializers import TaskSerializer
 from todo.models import Task
 
 
-class ListTasksView(generics.ListAPIView):
+class AllTasksView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class TaskView(generics.RetrieveUpdateDestroyAPIView):
