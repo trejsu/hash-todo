@@ -77,11 +77,10 @@
   </div>
 
   <div class="modal fade" id="add-task-modal" tabindex="-1" role="dialog" aria-labelledby="add-task-modal-title"
-       hidden="true">
+       aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="add-task-modal-long-title">Add todo</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -91,7 +90,7 @@
             {% csrf_token %}
             {{ form }}
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Add</button>
+              <button type="submit" class="btn btn-primary">add new todo</button>
             </div>
           </form>
         </div>

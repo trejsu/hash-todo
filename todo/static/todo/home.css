@@ -106,3 +106,30 @@
   line-height: 1.25rem;
   cursor: pointer;
 }
+
+.modal-content {
+  border: none !important;
+}
+
+.modal-header {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+}
+
+.close {
+  color: var(--light-color) !important;
+}
+
+.modal-footer button {
+  text-align: center;
+  height: auto;
+  font-size: 13px !important;
+  font-weight: bold;
+  padding: 9px 12px;
+  box-sizing: border-box;
+  background: var(--primary-color);
+  color: var(--light-color);
+  text-shadow: none;
+  border: 1px solid transparent;
+  border-radius: .25rem
+}
