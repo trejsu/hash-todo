@@ -24,7 +24,7 @@ def create_test_tasks():
     create_task('todo5', other_user)
 
 
-class GetAllTasksTest(APITestCase):
+class AllTasksTest(APITestCase):
     client = APIClient()
 
     def setUp(self):
@@ -37,7 +37,7 @@ class GetAllTasksTest(APITestCase):
 
         # when
         response = self.client.get(
-            reverse("get-all-tasks", kwargs={"version": "v1"})
+            reverse("api:all-tasks", kwargs={"version": "v1"})
         )
 
         # then
@@ -45,6 +45,22 @@ class GetAllTasksTest(APITestCase):
         serialized = TaskSerializer(expected, many=True)
         self.assertEqual(response.data, serialized.data)
         self.assertEqual(response.status_code, 200)
+
+    def test_should_add_new_task(self):
+        # given
+        self.client.login(username='test', password='test')
+        task_data = {'text': 'new todo'}
+
+        # when
+        response = self.client.post(
+            path=reverse("api:all-tasks", kwargs={"version": "v1"}),
+            data=task_data
+        )
+
+        # then
+        self.assertEqual(response.status_code, 201)
+        new_task = TaskSerializer(Task.objects.get(pk=response.data['id'])).data
+        self.assertEqual(response.data, new_task)
 
 
 class TaskTest(APITestCase):
@@ -61,7 +77,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.get(
-            reverse("task", kwargs={"version": "v1", "pk": task_id})
+            reverse("api:task", kwargs={"version": "v1", "pk": task_id})
         )
 
         # then
@@ -75,7 +91,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.get(
-            reverse("task", kwargs={"version": "v1", "pk": task_id})
+            reverse("api:task", kwargs={"version": "v1", "pk": task_id})
         )
 
         # then
@@ -88,7 +104,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.get(
-            reverse("task", kwargs={"version": "v1", "pk": task_id})
+            reverse("api:task", kwargs={"version": "v1", "pk": task_id})
         )
 
         # then
@@ -105,7 +121,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.put(
-            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            path=reverse("api:task", kwargs={"version": "v1", "pk": id}),
             data=put_data
         )
         updated_task = Task.objects.get(pk=id)
@@ -125,7 +141,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.put(
-            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            path=reverse("api:task", kwargs={"version": "v1", "pk": id}),
             data=put_data
         )
 
@@ -143,7 +159,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.patch(
-            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            path=reverse("api:task", kwargs={"version": "v1", "pk": id}),
             data=patch_data
         )
         updated_task = Task.objects.get(pk=id)
@@ -163,7 +179,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.patch(
-            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            path=reverse("api:task", kwargs={"version": "v1", "pk": id}),
             data=patch_data
         )
 
@@ -177,7 +193,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.delete(
-            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            path=reverse("api:task", kwargs={"version": "v1", "pk": id}),
         )
 
         # then
@@ -192,7 +208,7 @@ class TaskTest(APITestCase):
 
         # when
         response = self.client.delete(
-            path=reverse("task", kwargs={"version": "v1", "pk": id}),
+            path=reverse("api:task", kwargs={"version": "v1", "pk": id}),
         )
 
         # then

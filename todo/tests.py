@@ -92,3 +92,24 @@ class TaskModelTests(TestCase):
 
         # then
         self.assertEqual(t.status, STATUS.active)
+
+
+class SubmitTaskViewTests(TestCase):
+
+    def test_should_add_new_task(self):
+        # given
+        create_user()
+        self.client.login(username='test', password='test')
+        task_data = {'text': 'new todo'}
+
+        # when
+        response = self.client.post(
+            path=reverse("todo:submit-task"),
+            data=task_data,
+            HTTP_REFERER=reverse("todo:home")
+        )
+
+        # then
+        self.assertEqual(response.status_code, 302)
+        new_task = Task.objects.get(pk=1)
+        self.assertEqual(new_task.text, task_data['text'])
