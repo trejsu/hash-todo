@@ -18,5 +18,22 @@ $(document).ready(function () {
     window.location.href = '?' + urlParams.toString();
   });
 
+  var hoverCounter = 0;
+
+  $('#add-icon').hover(
+    function () {
+      if (hoverCounter < 1) {
+        $(this).html('<i class="fas fa-plus-circle"></i>');
+        hoverCounter += 1;
+      }
+    },
+    function () {
+      if (hoverCounter > 0) {
+        $(this).html('<i class="fas fa-plus"></i>');
+        hoverCounter -= 1;
+      }
+    }
+  );
+
 });
 

@@ -15,7 +15,7 @@
 
         <div class="col-sm-1">
         <span id="logout-icon">
-          <a href="{% url 'logout' %}" >
+          <a href="{% url 'logout' %}">
             <i class="fas fa-sign-out-alt"></i>
           </a>
         </span>
@@ -63,6 +63,15 @@
 
         </div>
       {% endfor %}
+    </div>
+
+    <div class="row" id="add-todo">
+      <div class="col-sm-1" id="add-icon">
+        <i class="fas fa-plus"></i>
+      </div>
+      <div class="col-sm-2 add-text">
+        Add todo
+      </div>
     </div>
 
   </div>
