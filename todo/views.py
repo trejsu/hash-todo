@@ -1,12 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, View
+from django.views.generic.edit import FormMixin
 
+from .forms import TaskForm
 from .models import Task, STATUS
 
 
-class HomeView(LoginRequiredMixin, ListView):
+class HomeView(LoginRequiredMixin, ListView, FormMixin):
     template_name = 'todo/home.html'
+    form_class = TaskForm
 
     def get_queryset(self):
         done = self.request.GET.get('done')
@@ -22,5 +25,13 @@ class ToggleTaskStatus(View):
         task = get_object_or_404(Task, pk=id)
         status = task.opposite_status()
         task.status = status
+        task.save()
+        return redirect(redirect_url)
+
+
+class SubmitTask(View):
+    def post(self, request):
+        redirect_url = request.META.get('HTTP_REFERER')
+        task = Task.objects.create(user=self.request.user, text=request.POST['text'])
         task.save()
         return redirect(redirect_url)
