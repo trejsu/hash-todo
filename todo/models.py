@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.db import models
 from model_utils import Choices
@@ -16,6 +18,7 @@ STATUS = Choices('active', 'done')
 class Task(UserData):
     text = models.CharField(max_length=1000)
     status = models.CharField(choices=STATUS, default=STATUS.active, max_length=20)
+    date = models.DateField(default=date.today)
 
     def __str__(self):
         return self.text
