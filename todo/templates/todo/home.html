@@ -86,6 +86,7 @@
           </button>
         </div>
         <div class="modal-body">
+
           <form action="{% url 'todo:submit-task' %}" method="post">
             {% csrf_token %}
             {{ form }}
@@ -93,6 +94,7 @@
               <button type="submit" class="btn btn-primary">add new todo</button>
             </div>
           </form>
+
         </div>
 
       </div>

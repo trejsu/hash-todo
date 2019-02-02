@@ -6,7 +6,10 @@ from .models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['text']
+        exclude = ['user', 'status']
+        widgets = {
+            'date': forms.DateInput(attrs={'class': 'datepicker'})
+        }
 
     def __init__(self, *args, **kwargs):
         super(forms.ModelForm, self).__init__(*args, **kwargs)
