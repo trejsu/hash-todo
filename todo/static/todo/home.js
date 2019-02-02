@@ -37,5 +37,13 @@ $(document).ready(function () {
 
   $('#id_date').datepicker();
 
+  // $('#todo-date').each(
+  //   function() {
+  //       console.log('dupa');
+  //       var time = moment($(this).text());
+  //       $(this).html(time.endOf('day').fromNow());
+  //     }
+  // );
+
 });
 
