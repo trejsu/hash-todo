@@ -25,3 +25,6 @@ class Task(UserData):
 
     def opposite_status(self):
         return STATUS.active if self.status == STATUS.done else STATUS.done
+
+    def is_due(self):
+        return self.date < date.today()

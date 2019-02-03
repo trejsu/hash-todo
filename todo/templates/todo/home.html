@@ -45,7 +45,7 @@
     <div id="todos">
 
       {% for task in object_list %}
-        <div class="row item {{ task.status }}">
+        <div class="row item {{ task.status }} {% if task.is_due %}due{% endif %}">
 
           <div class="col-sm-1 tick">
 
@@ -61,7 +61,7 @@
 
           <div class="col-sm-8 content">{{ task.text }}</div>
 
-          <div class="col-sm-3" id="todo-date">{{ task.date }}</div>
+          <div class="col-sm-2" id="todo-date">{{ task.date }}</div>
 
         </div>
       {% endfor %}

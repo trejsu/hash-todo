@@ -32,6 +32,10 @@ class ToggleTaskStatus(View):
 class SubmitTask(View):
     def post(self, request):
         redirect_url = request.META.get('HTTP_REFERER')
-        task = Task.objects.create(user=self.request.user, text=request.POST['text'])
+        task = Task.objects.create(
+            user=self.request.user,
+            text=request.POST['text'],
+            date=request.POST['date']
+        )
         task.save()
         return redirect(redirect_url)
