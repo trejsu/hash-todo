@@ -35,7 +35,8 @@ $(document).ready(function () {
     }
   );
 
-  $('#id_date').datepicker({dateFormat: 'yy-mm-dd'});
+  $('#id_date').datepicker({dateFormat: 'yy-mm-dd', defaultDate: new Date()});
+  $(".datepicker[value='']").datepicker("setDate", "-0d");
 
   // $('#todo-date').each(
   //   function() {

@@ -8,7 +8,9 @@ class TaskForm(forms.ModelForm):
         model = Task
         exclude = ['user', 'status']
         widgets = {
-            'date': forms.DateInput(attrs={'class': 'datepicker'}, format='YYYY-MM-DD')
+            'date': forms.DateInput(
+                attrs={'class': 'datepicker'}
+            )
         }
 
     def __init__(self, *args, **kwargs):
