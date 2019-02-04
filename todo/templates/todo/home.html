@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load todo_tags %}
 
 {% block title %}Home{% endblock %}
 
@@ -59,9 +60,9 @@
 
           </div>
 
-          <div class="col-sm-8 content">{{ task.text }}</div>
+          <div class="col-sm-9 content">{{ task.text }}</div>
 
-          <div class="col-sm-2" id="todo-date">{{ task.date }}</div>
+          <div class="col-sm-2" id="todo-date">{{ task.date | moment }}</div>
 
         </div>
       {% endfor %}

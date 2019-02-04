@@ -38,13 +38,5 @@ $(document).ready(function () {
   $('#id_date').datepicker({dateFormat: 'yy-mm-dd', defaultDate: new Date()});
   $(".datepicker[value='']").datepicker("setDate", "-0d");
 
-  // $('#todo-date').each(
-  //   function() {
-  //       console.log('dupa');
-  //       var time = moment($(this).text());
-  //       $(this).html(time.endOf('day').fromNow());
-  //     }
-  // );
-
 });
 

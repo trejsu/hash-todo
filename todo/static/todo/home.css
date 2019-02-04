@@ -136,4 +136,13 @@
 
 .due {
   background: var(--danger);
+  color: var(--light-color);
+}
+
+.due i {
+  color: var(--light-color);
+}
+
+.due i:hover {
+  color: var(--dark-color);
 }
