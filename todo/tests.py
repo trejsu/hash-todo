@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
@@ -82,16 +84,49 @@ class HomeViewTests(TestCase):
 
 class TaskModelTests(TestCase):
 
-    def test_new_task_should_have_active_status(self):
-        # given
+    def setUp(self):
         text = 'New todo'
         user = create_user()
+        self.task = Task.objects.create(text=text, user=user)
+
+    def test_new_task_should_have_active_status(self):
+        self.assertEqual(self.task.status, STATUS.active)
+
+    def test_new_task_should_have_today_date_by_default(self):
+        self.assertEqual(self.task.date, datetime.date.today())
+
+    def test_task_should_be_due_if_date_is_from_the_past(self):
+        # given
+        date = datetime.date.today() - datetime.timedelta(days=100)
 
         # when
-        t = Task.objects.create(text=text, user=user)
+        self.task.date = date
 
         # then
-        self.assertEqual(t.status, STATUS.active)
+        self.assertTrue(self.task.is_due())
+
+    def test_task_with_default_date_should_not_be_due(self):
+        self.assertFalse(self.task.is_due())
+
+    def test_task_from_yesterday_should_be_due(self):
+        # given
+        date = datetime.date.today() - datetime.timedelta(days=1)
+
+        # when
+        self.task.date = date
+
+        # then
+        self.assertTrue(self.task.is_due())
+
+    def test_task_from_the_future_should_not_be_due(self):
+        # given
+        date = datetime.date.today() + datetime.timedelta(days=100)
+
+        # when
+        self.task.date = date
+
+        # then
+        self.assertFalse(self.task.is_due())
 
 
 class SubmitTaskViewTests(TestCase):
@@ -100,7 +135,7 @@ class SubmitTaskViewTests(TestCase):
         # given
         create_user()
         self.client.login(username='test', password='test')
-        task_data = {'text': 'new todo'}
+        task_data = {'text': 'new todo', 'date': '2018-02-09'}
 
         # when
         response = self.client.post(
@@ -113,3 +148,4 @@ class SubmitTaskViewTests(TestCase):
         self.assertEqual(response.status_code, 302)
         new_task = Task.objects.get(pk=1)
         self.assertEqual(new_task.text, task_data['text'])
+        self.assertEqual(new_task.date.isoformat(), task_data['date'])
