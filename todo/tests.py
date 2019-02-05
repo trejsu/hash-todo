@@ -5,10 +5,11 @@ from django.test import TestCase
 from django.urls import reverse
 
 from .models import Task, STATUS
+from .templatetags.todo_tags import moment
 
 
 def create_task(text, user, status=STATUS.active):
-    Task.objects.create(text=text, user=user, status=status)
+    return Task.objects.create(text=text, user=user, status=status)
 
 
 def create_user(username='test', password='test', email='test@test'):
@@ -149,3 +150,106 @@ class SubmitTaskViewTests(TestCase):
         new_task = Task.objects.get(pk=1)
         self.assertEqual(new_task.text, task_data['text'])
         self.assertEqual(new_task.date.isoformat(), task_data['date'])
+
+
+class MomentFilterTests(TestCase):
+
+    def test_moment_should_return_today_string_for_today_date(self):
+        # given
+        date = datetime.date.today()
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, 'Today')
+
+    def test_moment_should_return_yesterday_string_for_yesterday_date(self):
+        # given
+        date = datetime.date.today() - datetime.timedelta(days=1)
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, 'Yesterday')
+
+    def test_moment_should_return_tomorrow_string_for_tomorrow_date(self):
+        # given
+        date = datetime.date.today() + datetime.timedelta(days=1)
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, 'Tomorrow')
+
+    def test_moment_should_return_day_of_week_string_for_date_within_next_7_days(self):
+        # given
+        date = datetime.date.today() + datetime.timedelta(days=3)
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, date.strftime('%A'))
+
+    def test_moment_should_return_day_of_week_string_for_6_days_after_today(self):
+        # given
+        date = datetime.date.today() + datetime.timedelta(days=6)
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, date.strftime('%A'))
+
+    def test_moment_should_return_standard_string_for_7_days_after_today(self):
+        # given
+        date = datetime.date.today() + datetime.timedelta(days=7)
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, date.strftime("%d %b"))
+
+    def test_moment_should_return_standard_string_for_date_in_the_future(self):
+        # given
+        date = datetime.date.today() + datetime.timedelta(days=100)
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, date.strftime("%d %b"))
+
+    def test_moment_should_return_standard_string_for_date_in_the_past(self):
+        # given
+        date = datetime.date.today() - datetime.timedelta(days=100)
+
+        # when
+        formatted_date = moment(date)
+
+        # then
+        self.assertEqual(formatted_date, date.strftime("%d %b"))
+
+
+class DeleteTaskViewTests(TestCase):
+
+    def test_should_delete_task(self):
+        # given
+        u = create_user()
+        t = create_task(text='todo', user=u)
+        self.client.login(username='test', password='test')
+
+        # when
+        response = self.client.get(
+            path=reverse("todo:delete-task", kwargs={"id": t.id}),
+            HTTP_REFERER=reverse("todo:home")
+        )
+
+        # then
+        self.assertEqual(response.status_code, 302)
+        with self.assertRaises(Task.DoesNotExist):
+            Task.objects.get(pk=t.id)
