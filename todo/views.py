@@ -14,9 +14,13 @@ class HomeView(LoginRequiredMixin, ListView, FormMixin):
     def get_queryset(self):
         done = self.request.GET.get('done')
         if done == 'true' or done is None:
-            return Task.objects.filter(user=self.request.user)
+            return Task.objects \
+                .filter(user=self.request.user) \
+                .order_by('date', 'text')
         else:
-            return Task.objects.filter(user=self.request.user, status=STATUS.active)
+            return Task.objects \
+                .filter(user=self.request.user, status=STATUS.active) \
+                .order_by('date', 'text')
 
 
 class ToggleTaskStatus(View):
