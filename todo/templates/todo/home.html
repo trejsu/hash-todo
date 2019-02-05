@@ -60,10 +60,19 @@
 
           </div>
 
-          <div class="col-sm-9 content">{{ task.text }}</div>
+          <div class="col-sm-8 content">{{ task.text }}</div>
 
           <div class="col-sm-2" id="todo-date">{{ task.date | moment }}</div>
 
+          <div class="col-sm-1 delete">
+
+            <a href="{% url "todo:delete-task" task.id %}">
+              <div id="delete-icon">
+                <i class="far fa-trash-alt"></i>
+              </div>
+            </a>
+
+          </div>
         </div>
       {% endfor %}
     </div>

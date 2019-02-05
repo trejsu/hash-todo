@@ -38,3 +38,11 @@ class SubmitTask(View):
             task.user = request.user
             task.save()
         return redirect(redirect_url)
+
+
+class DeleteTask(View):
+    def get(self, request, id):
+        redirect_url = request.META.get('HTTP_REFERER')
+        task = get_object_or_404(Task, pk=id)
+        task.delete()
+        return redirect(redirect_url)
