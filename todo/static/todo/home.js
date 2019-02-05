@@ -1,8 +1,7 @@
 $(document).ready(function () {
 
-  $('[data-toggle="tooltip"]').tooltip();
-
   var urlParams = new URLSearchParams(window.location.search);
+
   var done = !urlParams.has('done') || urlParams.get('done') === 'true';
   var showDoneToggle = $('#show-done-toggle');
   toggleText(done);
@@ -15,6 +14,21 @@ $(document).ready(function () {
     var newDone = !done;
     toggleText(newDone);
     urlParams.set('done', newDone.toString());
+    window.location.href = '?' + urlParams.toString();
+  });
+
+  var sort = !urlParams.has('sort') || urlParams.get('sort') === 'true';
+  var sortToggle = $('#sort-toggle');
+  toggleSort(sort);
+
+  function toggleSort(newSort) {
+    sortToggle.html(newSort ? '<i class="fas fa-sort-numeric-down"></i>' : '<i class="fas fa-sort-numeric-up"></i>');
+  }
+
+  sortToggle.click(function () {
+    var newSort = !sort;
+    toggleSort(newSort);
+    urlParams.set('sort', newSort.toString());
     window.location.href = '?' + urlParams.toString();
   });
 

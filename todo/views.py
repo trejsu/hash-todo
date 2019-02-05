@@ -13,14 +13,24 @@ class HomeView(LoginRequiredMixin, ListView, FormMixin):
 
     def get_queryset(self):
         done = self.request.GET.get('done')
+        sort = self.request.GET.get('sort')
+        print(sort)
         if done == 'true' or done is None:
+            if sort == 'true' or sort is None:
+                date = 'date'
+            else:
+                date = '-date'
             return Task.objects \
                 .filter(user=self.request.user) \
-                .order_by('date', 'text')
+                .order_by(date, 'text')
         else:
+            if sort == 'true' or sort is None:
+                date = 'date'
+            else:
+                date = '-date'
             return Task.objects \
                 .filter(user=self.request.user, status=STATUS.active) \
-                .order_by('date', 'text')
+                .order_by(date, 'text')
 
 
 class ToggleTaskStatus(View):
