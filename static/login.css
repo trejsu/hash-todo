@@ -3,3 +3,7 @@
   text-align: center;
 }
 
+#help a {
+  color: var(--primary-color) !important;
+}
+
