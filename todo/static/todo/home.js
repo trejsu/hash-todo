@@ -18,19 +18,19 @@ $(document).ready(function () {
     window.location.href = '?' + urlParams.toString();
   });
 
-  var hoverCounter = 0;
+  var addIconHoverCounter = 0;
 
   $('#add-icon').hover(
     function () {
-      if (hoverCounter < 1) {
+      if (addIconHoverCounter < 1) {
         $(this).html('<i class="fas fa-plus-circle"></i>');
-        hoverCounter += 1;
+        addIconHoverCounter += 1;
       }
     },
     function () {
-      if (hoverCounter > 0) {
+      if (addIconHoverCounter > 0) {
         $(this).html('<i class="fas fa-plus"></i>');
-        hoverCounter -= 1;
+        addIconHoverCounter -= 1;
       }
     }
   );

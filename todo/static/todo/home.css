@@ -134,15 +134,34 @@
   border-radius: .25rem
 }
 
+.modal-footer button:hover {
+  background: var(--primary-color);
+  border: 1px solid transparent;
+}
+
 .due {
-  background: var(--danger);
-  color: var(--light-color);
+  background-image: linear-gradient(90deg, #c91f37, #F22613);
 }
 
-.due i {
-  color: var(--light-color);
+#delete-icon i {
+  line-height: 1.25rem;
 }
 
-.due i:hover {
-  color: var(--dark-color);
+#delete-icon i:hover {
+  color: var(--primary-color);
 }
+
+#id_text {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+#id_date {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin-top: 1rem;
+}
+
+
